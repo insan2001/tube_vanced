@@ -113,7 +113,7 @@ class _AddChannelScreenState extends State<AddChannelScreen> {
               child: TextField(
                 controller: controller,
                 decoration: InputDecoration(
-                  hintText: "Add video url",
+                  hintText: "Add video url from your desired channel",
                   border: InputBorder.none,
                   suffixIcon: isProgress
                       ? const CircularProgressIndicator()

@@ -49,8 +49,8 @@ class _YoutubeScreenState extends State<YoutubeScreen> {
   Widget build(BuildContext context) {
     return dataList.isEmpty
         ? const Center(
-            child: Text("Add a channel video",
-                style: TextStyle(color: Colors.white)))
+            child: Text("Add your prefered channel",
+                style: TextStyle(color: Colors.white70)))
         : RefreshIndicator(
             triggerMode: RefreshIndicatorTriggerMode.anywhere,
             onRefresh: () async {

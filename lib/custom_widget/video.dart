@@ -67,11 +67,11 @@ class VideoWidget extends StatelessWidget {
                               dataList.item1.title,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white70),
                             ),
                             Text(
                               "${dataList.item1.author} . ${dataList.item1.uploadDateRaw}",
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white70),
                             ),
                           ],
                         ),

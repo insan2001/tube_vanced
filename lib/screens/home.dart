@@ -12,8 +12,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
-  final Color selected = Colors.white;
-  final Color others = Colors.blue;
+  final Color selected = Colors.white70;
+  final Color others = const Color.fromARGB(255, 115, 169, 214);
 
   late List<Widget> pages;
 
@@ -42,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              enableFeedback: false,
               onPressed: () {
                 setState(() {
                   pageIndex = 0;
@@ -55,27 +54,25 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             IconButton(
-              enableFeedback: false,
               onPressed: () {
                 setState(() {
                   pageIndex = 1;
                 });
               },
               icon: Icon(
-                Icons.person_pin,
+                Icons.groups_sharp,
                 color: pageIndex == 1 ? selected : others,
                 size: 35,
               ),
             ),
             IconButton(
-              enableFeedback: false,
               onPressed: () {
                 setState(() {
                   pageIndex = 2;
                 });
               },
               icon: Icon(
-                Icons.add_box_sharp,
+                Icons.add_link_rounded,
                 color: pageIndex == 2 ? selected : others,
                 size: 35,
               ),

@@ -8,14 +8,9 @@ class ValueProvider extends ChangeNotifier {
 
   List<Tuple<ChannelUploadsList, Channel>> channelData = [];
 
-  addValue(Channel key, Tuple<ChannelUploadsList, Channel> value) async {
-    dataSet[key.id.toString()] = value;
+  addValue(Tuple<ChannelUploadsList, Channel> value) async {
+    dataSet[value.item2.id.toString()] = value;
     channelData.add(value);
-    List<String> channelList = [];
-    for (var element in channelData) {
-      channelList.add(element.item2.id.toString());
-    }
-    await prefs.setStringList(prefKey, channelList);
     notifyListeners();
   }
 

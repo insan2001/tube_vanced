@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -18,6 +19,9 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
     ytControl = YoutubePlayerController(
         initialVideoId: widget.video.id.value,
         flags: const YoutubePlayerFlags(
+          hideControls: false,
+          skipDuration: 10,
+          enableCaption: false,
           autoPlay: true,
           loop: false,
           mute: false,
@@ -43,37 +47,6 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
     super.dispose();
   }
 
-  // getDownloadInfo(bool isAudioOnly) async {
-  //   var yt = YoutubeExplode();
-  //   var manifest = await yt.videos.streams.getManifest(widget.video.id);
-  //   var audio = manifest.audioOnly.withHighestBitrate();
-  //   var video = manifest.muxed.bestQuality;
-
-  //   var streamInfo = isAudioOnly ? audio : video;
-  //   yt.close();
-  //   return streamInfo;
-  // }
-
-  // Future<AudioOnlyStreamInfo> getAudioInfo() async {
-  //   AudioOnlyStreamInfo data = await getDownloadInfo(true);
-  //   return data;
-  // }
-
-  // Future<MuxedStreamInfo> getVideoInfo() async {
-  //   MuxedStreamInfo data = await getDownloadInfo(false);
-  //   return data;
-  // }
-
-  // download(bool isAudioOnly) async {
-  //   ScaffoldMessenger.of(context)
-  //       .showSnackBar(SnackBar(content: Text("Download started")));
-  //   var yt = YoutubeExplode();
-  //   var streamInfo = await getDownloadInfo(isAudioOnly);
-  //   var stream = yt.videos.streamsClient.get(streamInfo);
-
-  //   yt.close();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return YoutubePlayerBuilder(
@@ -87,15 +60,15 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: Colors.white70),
               ),
             )
           ],
         ),
         builder: (context, player) => Scaffold(
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.black,
               body: ListView(
                 children: [
                   player,
@@ -107,58 +80,20 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                            color: Colors.white70),
                       ),
                     ),
+                    trailing: IconButton(
+                        onPressed: () {
+                          Share.share(widget.video.url);
+                        },
+                        icon: Icon(
+                          Icons.share,
+                          color: Colors.white70,
+                        )),
                   ),
-                  IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        size: 48,
-                      ))
-                  // Column(
-                  //   children: [
-                  //     FutureBuilder(
-                  //         future: getVideoInfo(),
-                  //         builder: (context, snapshot) {
-                  //           if (snapshot.connectionState ==
-                  //               ConnectionState.waiting) {
-                  //             return const Center(
-                  //                 child: CircularProgressIndicator());
-                  //           } else if (snapshot.hasData) {
-                  //             return DownloadButton(
-                  //               func: download(false),
-                  //               text: "Download Video",
-                  //               size: snapshot.data!.size.totalMegaBytes
-                  //                   .toString(),
-                  //             );
-                  //           } else {
-                  //             return const Icon(Icons.error);
-                  //           }
-                  //         }),
-                  //     FutureBuilder(
-                  //         future: getAudioInfo(),
-                  //         builder: (context, snapshot) {
-                  //           if (snapshot.connectionState ==
-                  //               ConnectionState.waiting) {
-                  //             return const Center(
-                  //                 child: CircularProgressIndicator());
-                  //           } else if (snapshot.hasData) {
-                  //             return DownloadButton(
-                  //               func: download(true),
-                  //               text: "Download Audio",
-                  //               size: snapshot.data!.size.totalMegaBytes
-                  //                   .toString(),
-                  //             );
-                  //           } else {
-                  //             return const Icon(Icons.error);
-                  //           }
-                  //         }),
-                  //   ],
-                  // )
                 ],
               ),
             ));
