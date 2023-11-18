@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:youtube_clone/notify.dart';
 import 'package:youtube_clone/screens/home.dart';
 
 late SharedPreferences prefs;
@@ -12,8 +14,11 @@ void main() async {
   if (channelIdList == []) {
     prefs.setStringList(prefKey, []);
   }
+  Provider.debugCheckInvalidValueType = null;
 
-  runApp(const MyApp());
+  runApp(MultiProvider(
+      providers: [Provider(create: (_) => ValueProvider())],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -30,54 +30,56 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: pages[pageIndex],
-      bottomNavigationBar: Container(
-        height: 60,
-        decoration: const BoxDecoration(
-          color: Colors.black,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  pageIndex = 0;
-                });
-              },
-              icon: Icon(
-                Icons.home_rounded,
-                color: pageIndex == 0 ? selected : others,
-                size: 35,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: pages[pageIndex],
+        bottomNavigationBar: Container(
+          height: 60,
+          decoration: const BoxDecoration(
+            color: Colors.black,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    pageIndex = 0;
+                  });
+                },
+                icon: Icon(
+                  Icons.home_rounded,
+                  color: pageIndex == 0 ? selected : others,
+                  size: 35,
+                ),
               ),
-            ),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  pageIndex = 1;
-                });
-              },
-              icon: Icon(
-                Icons.groups_sharp,
-                color: pageIndex == 1 ? selected : others,
-                size: 35,
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    pageIndex = 1;
+                  });
+                },
+                icon: Icon(
+                  Icons.groups_sharp,
+                  color: pageIndex == 1 ? selected : others,
+                  size: 35,
+                ),
               ),
-            ),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  pageIndex = 2;
-                });
-              },
-              icon: Icon(
-                Icons.add_link_rounded,
-                color: pageIndex == 2 ? selected : others,
-                size: 35,
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    pageIndex = 2;
+                  });
+                },
+                icon: Icon(
+                  Icons.add_link_rounded,
+                  color: pageIndex == 2 ? selected : others,
+                  size: 35,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:youtube_clone/custom_widget/text.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
 import 'package:youtube_clone/functions/youtube.dart';
 import 'package:youtube_clone/main.dart';
+import 'package:youtube_clone/notify.dart';
 import 'package:youtube_clone/screens/youtube.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
@@ -10,27 +13,34 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Tuple<ChannelUploadsList, Channel>> dataList = [];
-    if (previousDataSet.isNotEmpty) {
-      previousDataSet.forEach((key, value) {
-        dataList.add(value);
-      });
-      return YoutubeScreen(dataList: dataList);
-    } else {
+    var data = prefs.getStringList(prefKey) ?? [];
+    if (Provider.of<ValueProvider>(context, listen: false).dataSet.isNotEmpty) {
+      return const YoutubeScreen();
+    } else if (Provider.of<ValueProvider>(context, listen: false)
+            .dataSet
+            .isEmpty &&
+        data.isNotEmpty) {
       return FutureBuilder(
-          future: getAllChannelInfo(prefs.getStringList(prefKey) ?? [], false),
+          future: getAllChannelInfo(
+              data, false, context.read<ValueProvider>().dataSet),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: LinearProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
               List<Tuple<ChannelUploadsList, Channel>> dataList =
                   snapshot.data!;
-
-              return YoutubeScreen(dataList: dataList);
+              for (var data in dataList) {
+                Provider.of<ValueProvider>(context, listen: false)
+                    .addValue(data);
+              }
+              Provider.of<ValueProvider>(context, listen: false).sortData();
+              return const YoutubeScreen();
             } else {
-              return const Center(child: Text("Failed to load data."));
+              return const Center(child: MyText(data: "Failed to load data."));
             }
           });
+    } else {
+      return const Center(child: MyText(data: "Add some channel"));
     }
   }
 }

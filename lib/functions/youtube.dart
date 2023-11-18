@@ -1,12 +1,10 @@
 import 'package:youtube_clone/functions/linkedList.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-Map<String, Tuple<ChannelUploadsList, Channel>> previousDataSet = {};
-
 Future<List<Tuple<ChannelUploadsList, Channel>>> getAllChannelInfo(
-  List<String> channelIdList,
-  bool ignorePrevious,
-) async {
+    List<String> channelIdList,
+    bool ignorePrevious,
+    Map<String, Tuple<ChannelUploadsList, Channel>> previousDataSet) async {
   var yt = YoutubeExplode();
 
   List<Tuple<ChannelUploadsList, Channel>> dataList = [];
@@ -21,7 +19,6 @@ Future<List<Tuple<ChannelUploadsList, Channel>>> getAllChannelInfo(
           await yt.channels.getUploadsFromPage(channelID);
 
       data = Tuple(videoList, channel);
-      previousDataSet[channelID] = data;
     }
     dataList.add(data);
   }
