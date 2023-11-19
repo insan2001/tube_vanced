@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:youtube_clone/notify.dart';
 import 'package:youtube_clone/screens/addChannel.dart';
 import 'package:youtube_clone/screens/allChannel.dart';
 import 'package:youtube_clone/screens/load.dart';
@@ -28,6 +30,21 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  clickHandler(pIndex) {
+    if (context.read<ValueProvider>().loadingData) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please wait till load data..."),
+        ),
+      );
+      return;
+    } else {
+      setState(() {
+        pageIndex = pIndex;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,9 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               IconButton(
                 onPressed: () {
-                  setState(() {
-                    pageIndex = 0;
-                  });
+                  clickHandler(0);
                 },
                 icon: Icon(
                   Icons.home_rounded,
@@ -56,9 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               IconButton(
                 onPressed: () {
-                  setState(() {
-                    pageIndex = 1;
-                  });
+                  clickHandler(1);
                 },
                 icon: Icon(
                   Icons.groups_sharp,
@@ -68,9 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               IconButton(
                 onPressed: () {
-                  setState(() {
-                    pageIndex = 2;
-                  });
+                  clickHandler(2);
                 },
                 icon: Icon(
                   Icons.add_link_rounded,

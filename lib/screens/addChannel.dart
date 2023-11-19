@@ -26,6 +26,7 @@ class _AddChannelScreenState extends State<AddChannelScreen> {
   List<bool> newChannelProgress = [];
 
   searchChannel() {
+    Provider.of<ValueProvider>(context, listen: false).setLoading(true);
     String userInput = controller.text;
     controller.text = "";
     if (userInput.isEmpty) return;
@@ -35,6 +36,7 @@ class _AddChannelScreenState extends State<AddChannelScreen> {
 
     final regex = RegExp(regexPattern);
     if (!regex.hasMatch(userInput)) {
+      Provider.of<ValueProvider>(context, listen: false).setLoading(false);
       setState(() {
         hintText = "Invalid url! add a video url";
         isProgress = false;
@@ -43,6 +45,7 @@ class _AddChannelScreenState extends State<AddChannelScreen> {
       getChannelID(userInput).then((channel) {
         newChannelProgress.insert(0, false);
         newChannelList.insert(0, channel);
+        Provider.of<ValueProvider>(context, listen: false).setLoading(false);
         setState(() {
           hintText = "Add video url from your desired channel";
           newChannelList;
@@ -117,24 +120,29 @@ class _AddChannelScreenState extends State<AddChannelScreen> {
                                         content: Text(
                                             "Already added this channel")));
                                 setState(() {
-                                  isProgress = false;
+                                  newChannelProgress[index] = false;
                                 });
                               } else {
-                                getAllChannelInfo(
-                                        [newChannelList[index].id.toString()],
-                                        false,
-                                        {})
-                                    .then((value) => context
-                                        .read<ValueProvider>()
-                                        .addValue(value[0]))
-                                    .then((value) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
+                                Provider.of<ValueProvider>(context,
+                                        listen: false)
+                                    .setLoading(true);
+                                getChannelInfo(
+                                        newChannelList[index].id.toString(),
+                                        context)
+                                    .then(
+                                  (value) => ScaffoldMessenger.of(context)
+                                      .showSnackBar(
                                     const SnackBar(
                                       content:
                                           Text("Channel added successfully"),
                                     ),
-                                  );
+                                  ),
+                                )
+                                    .then((value) {
                                   newChannelList.remove(newChannelList[index]);
+                                  Provider.of<ValueProvider>(context,
+                                          listen: false)
+                                      .setLoading(false);
                                   setState(() {
                                     newChannelList;
                                     newChannelProgress[index] = false;

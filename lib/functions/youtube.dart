@@ -1,29 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
+import 'package:youtube_clone/notify.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-Future<List<Tuple<ChannelUploadsList, Channel>>> getAllChannelInfo(
-    List<String> channelIdList,
-    bool ignorePrevious,
-    Map<String, Tuple<ChannelUploadsList, Channel>> previousDataSet) async {
+Future<Tuple<ChannelUploadsList, Channel>> getChannelInfo(
+    String channelID, BuildContext context) async {
   var yt = YoutubeExplode();
 
-  List<Tuple<ChannelUploadsList, Channel>> dataList = [];
+  return yt.channels.get(channelID).then(
+        (Channel channel) => yt.channels
+            .getUploadsFromPage(channelID)
+            .then((ChannelUploadsList uploadsList) {
+          var data = Tuple(uploadsList, channel);
+          Provider.of<ValueProvider>(context, listen: false).addValue(data);
+          yt.close();
+          return data;
+        }),
+      );
+}
+
+Future<void> getAndSetAllChannelInfo(
+    List<String> channelIdList,
+    bool ignorePrevious,
+    Map<String, Tuple<ChannelUploadsList, Channel>> previousDataSet,
+    BuildContext context) async {
   for (String channelID in channelIdList) {
-    Tuple<ChannelUploadsList, Channel> data;
-
+    context.read<ValueProvider>().setLoading(true);
     if (previousDataSet.containsKey(channelID) && !ignorePrevious) {
-      data = previousDataSet[channelID]!;
+      null;
     } else {
-      Channel channel = await yt.channels.get(channelID);
-      ChannelUploadsList videoList =
-          await yt.channels.getUploadsFromPage(channelID);
-
-      data = Tuple(videoList, channel);
+      await getChannelInfo(channelID, context);
     }
-    dataList.add(data);
   }
-  yt.close();
-  return dataList;
 }
 
 Future<Channel> getChannelID(String link) async {
