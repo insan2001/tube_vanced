@@ -20,10 +20,8 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
         initialVideoId: widget.video.id.value,
         flags: const YoutubePlayerFlags(
           hideControls: false,
-          skipDuration: 10,
           disableDragSeek: true,
           enableCaption: false,
-          disableDoubleTap: false,
           autoPlay: true,
           loop: false,
           mute: false,
