@@ -21,6 +21,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
         flags: const YoutubePlayerFlags(
           hideControls: false,
           disableDragSeek: true,
+          doubleTapSkipTime: 10,
           enableCaption: false,
           autoPlay: true,
           loop: false,
