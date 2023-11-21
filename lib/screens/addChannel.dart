@@ -77,6 +77,7 @@ class _AddChannelScreenState extends State<AddChannelScreen> {
                 decoration: InputDecoration(
                   hintText: hintText,
                   border: InputBorder.none,
+                  hintStyle: const TextStyle(color: Colors.black),
                   suffixIcon: isProgress
                       ? const CircularProgressIndicator()
                       : IconButton(

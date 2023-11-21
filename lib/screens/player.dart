@@ -21,7 +21,9 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
         flags: const YoutubePlayerFlags(
           hideControls: false,
           skipDuration: 10,
+          disableDragSeek: true,
           enableCaption: false,
+          disableDoubleTap: false,
           autoPlay: true,
           loop: false,
           mute: false,
@@ -89,7 +91,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
                         onPressed: () {
                           Share.share(widget.video.url);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.share,
                           color: Colors.white70,
                         )),
