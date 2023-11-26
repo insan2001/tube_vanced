@@ -34,8 +34,8 @@ class ValueProvider extends ChangeNotifier {
   }
 
   removeValue(int index) {
-    var key = channelData[index];
-    var channelID = key.item2.id.toString();
+    Tuple<ChannelUploadsList, Channel> key = channelData[index];
+    String channelID = key.item2.id.toString();
     dataSet.remove(channelID);
     channelData.remove(key);
     List<String> channelList = prefs.getStringList(prefKey)!;
