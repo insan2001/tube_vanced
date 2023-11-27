@@ -698,7 +698,7 @@ packages:
     description:
       path: "packages/youtube_player_flutter"
       ref: HEAD
-      resolved-ref: "4805ac8e52ed11768910eb7173b1abc3fac1630e"
+      resolved-ref: "1cde6e6658bb998834b82142416bc55c4759423d"
       url: "https://github.com/insan2001/youtube_player_flutter"
     source: git
     version: "8.1.2"
