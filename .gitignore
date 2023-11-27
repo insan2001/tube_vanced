@@ -37,7 +37,7 @@ migrate_working_dir/
 /linux/
 /ios/
 /web/
-pubspec.lock
+
 
 # Symbolication related
 app.*.symbols
