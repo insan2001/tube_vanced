@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:youtube_clone/custom_widget/subscribeButton.dart';
 import 'package:youtube_clone/custom_widget/video.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
-import 'package:youtube_clone/notify.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class ChannelScreen extends StatefulWidget {
@@ -57,7 +55,9 @@ class _ChannelScreenState extends State<ChannelScreen> {
                     SliverAppBar(
                       pinned: true,
                       backgroundColor: Colors.black,
-                      actions: [SubscribeButton(channel: widget.channel)],
+                      actions: [
+                        SubscribeButton(channelId: widget.channel.id.toString())
+                      ],
                       floating: true,
                       expandedHeight:
                           MediaQuery.of(context).size.width / 16 * 4.36,
@@ -74,10 +74,13 @@ class _ChannelScreenState extends State<ChannelScreen> {
                       ),
                     ),
                     SliverList.builder(
-                      itemBuilder: (context, index) => VideoWidget(
-                        dataList: Tuple(snapshot.data![index], widget.channel),
-                      ),
-                    ),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return VideoWidget(
+                            dataList:
+                                Tuple(snapshot.data![index], widget.channel),
+                          );
+                        }),
                   ],
                 );
               } else {

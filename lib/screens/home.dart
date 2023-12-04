@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:youtube_clone/notify.dart';
-import 'package:youtube_clone/screens/addChannel.dart';
 import 'package:youtube_clone/screens/allChannel.dart';
-import 'package:youtube_clone/screens/load.dart';
 import 'package:youtube_clone/screens/search.dart';
+import 'package:youtube_clone/screens/youtube.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,9 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     pages = [
-      const LoadingScreen(),
+      const YoutubehomeScreen(),
       const DisplayChannelScreen(),
-      const AddChannelScreen(),
       const SearchScreen(),
     ];
 
@@ -33,18 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   clickHandler(pIndex) {
-    if (context.read<ValueProvider>().loadingData) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Please wait till load data..."),
-        ),
-      );
-      return;
-    } else {
-      setState(() {
-        pageIndex = pIndex;
-      });
-    }
+    setState(() {
+      pageIndex = pIndex;
+    });
   }
 
   @override
@@ -86,18 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   clickHandler(2);
                 },
                 icon: Icon(
-                  Icons.add_link_rounded,
-                  color: pageIndex == 2 ? selected : others,
-                  size: 35,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  clickHandler(3);
-                },
-                icon: Icon(
                   Icons.search,
-                  color: pageIndex == 3 ? selected : others,
+                  color: pageIndex == 2 ? selected : others,
                   size: 35,
                 ),
               ),
