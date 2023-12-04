@@ -4,6 +4,7 @@ import 'package:youtube_clone/notify.dart';
 import 'package:youtube_clone/screens/addChannel.dart';
 import 'package:youtube_clone/screens/allChannel.dart';
 import 'package:youtube_clone/screens/load.dart';
+import 'package:youtube_clone/screens/search.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const LoadingScreen(),
       const DisplayChannelScreen(),
       const AddChannelScreen(),
+      const SearchScreen(),
     ];
 
     super.initState();
@@ -86,6 +88,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(
                   Icons.add_link_rounded,
                   color: pageIndex == 2 ? selected : others,
+                  size: 35,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  clickHandler(3);
+                },
+                icon: Icon(
+                  Icons.search,
+                  color: pageIndex == 3 ? selected : others,
                   size: 35,
                 ),
               ),

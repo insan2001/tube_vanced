@@ -42,7 +42,7 @@ class _AddChannelScreenState extends State<AddChannelScreen> {
         isProgress = false;
       });
     } else {
-      getChannelID(userInput).then((channel) {
+      getChannel(userInput).then((channel) {
         newChannelProgress.insert(0, false);
         newChannelList.insert(0, channel);
         Provider.of<ValueProvider>(context, listen: false).setLoading(false);

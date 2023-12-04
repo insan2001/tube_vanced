@@ -35,7 +35,7 @@ Future<void> getAndSetAllChannelInfo(
   }
 }
 
-Future<Channel> getChannelID(String link) async {
+Future<Channel> getChannel(String link) async {
   var yt = YoutubeExplode();
   Channel channel = await yt.channels.getByVideo(link);
   yt.close();
