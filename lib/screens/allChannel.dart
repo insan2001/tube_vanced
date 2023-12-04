@@ -23,17 +23,17 @@ class _DisplayChannelScreenState extends State<DisplayChannelScreen> {
               itemBuilder: (context, index) => Card(
                 color: Colors.grey,
                 child: ListTile(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChannelScreen(
-                            data: context
-                                .read<ValueProvider>()
-                                .channelData[index]),
-                      ),
-                    );
-                  },
+                  // onTap: () {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => ChannelScreen(
+                  //           data: context
+                  //               .read<ValueProvider>()
+                  //               .channelData[index]),
+                  //     ),
+                  //   );
+                  // },
                   leading: CircleAvatar(
                     maxRadius: 30,
                     foregroundImage: CachedNetworkImageProvider(

@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_clone/custom_widget/video.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
-import 'package:youtube_clone/functions/youtube.dart';
-import 'package:youtube_clone/screens/channel.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -89,19 +87,6 @@ class _SearchScreenState extends State<SearchScreen> {
               )
             : VideoWidget(
                 dataList: dataList[index],
-                navigation: () {
-                  getChannelInfo(dataList[index].item2.id.toString(), context)
-                      .then(
-                    (value) => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChannelScreen(
-                          data: value,
-                        ),
-                      ),
-                    ),
-                  );
-                },
               ),
       ),
     );

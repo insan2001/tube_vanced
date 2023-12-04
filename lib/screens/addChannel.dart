@@ -128,18 +128,18 @@ class _AddChannelScreenState extends State<AddChannelScreen> {
                                         listen: false)
                                     .setLoading(true);
                                 getChannelInfo(
-                                        newChannelList[index].id.toString(),
-                                        context)
-                                    .then(
-                                  (value) => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
+                                        newChannelList[index].id.toString())
+                                    .then((value) {
+                                  Provider.of<ValueProvider>(context,
+                                          listen: false)
+                                      .addValue(value);
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content:
                                           Text("Channel added successfully"),
                                     ),
-                                  ),
-                                )
-                                    .then((value) {
+                                  );
+                                }).then((value) {
                                   newChannelList.remove(newChannelList[index]);
                                   Provider.of<ValueProvider>(context,
                                           listen: false)

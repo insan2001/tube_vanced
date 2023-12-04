@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
+import 'package:youtube_clone/screens/channel.dart';
 import 'package:youtube_clone/screens/player.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class VideoWidget extends StatelessWidget {
   final Tuple<Video, Channel> dataList;
-  final Function navigation;
-  const VideoWidget(
-      {super.key, required this.dataList, required this.navigation});
+  const VideoWidget({super.key, required this.dataList});
 
   final double BOTTOMSIZE = 60;
 
@@ -18,7 +17,7 @@ class VideoWidget extends StatelessWidget {
       color: Colors.black,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.width * 9 / 16 + BOTTOMSIZE,
+        // height: MediaQuery.of(context).size.width * 9 / 16 + BOTTOMSIZE,
         child: Center(
           child: Column(
             children: [
@@ -41,45 +40,69 @@ class VideoWidget extends StatelessWidget {
                       }),
                 ),
               ),
-              GestureDetector(
-                onTap: () => navigation(),
-                child: Container(
-                  padding: const EdgeInsets.all(2),
-                  width: MediaQuery.of(context).size.width,
-                  height: BOTTOMSIZE,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 10,
-                        child: CircleAvatar(
-                          foregroundImage: CachedNetworkImageProvider(
-                              dataList.item2.logoUrl),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 8 / 10,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              dataList.item1.title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                            Text(
-                              "${dataList.item1.author} . ${dataList.item1.uploadDateRaw}",
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+              ListTile(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ChannelScreen(channel: dataList.item2),
                   ),
                 ),
-              ),
+                leading: CircleAvatar(
+                  foregroundImage:
+                      CachedNetworkImageProvider(dataList.item2.logoUrl),
+                ),
+                title: Text(
+                  dataList.item1.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.white70),
+                ),
+                subtitle: Text(
+                  "${dataList.item1.author} . ${dataList.item1.uploadDateRaw}",
+                  style: const TextStyle(color: Colors.white70),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+              // GestureDetector(
+              //   onTap: () => navigation(),
+              //   child: Container(
+              //     padding: const EdgeInsets.all(2),
+              //     width: MediaQuery.of(context).size.width,
+              //     height: BOTTOMSIZE,
+              //     child: Row(
+              //       children: [
+              //         SizedBox(
+              //           width: MediaQuery.of(context).size.width / 10,
+              //           child: CircleAvatar(
+              //             foregroundImage: CachedNetworkImageProvider(
+              //                 dataList.item2.logoUrl),
+              //           ),
+              //         ),
+              //         const SizedBox(width: 10),
+              //         SizedBox(
+              //           width: MediaQuery.of(context).size.width * 8 / 10,
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             mainAxisAlignment: MainAxisAlignment.start,
+              //             children: [
+              // Text(
+              //   dataList.item1.title,
+              //   maxLines: 2,
+              //   overflow: TextOverflow.ellipsis,
+              //   style: TextStyle(color: Colors.white70),
+              // ),
+              // Text(
+              //   "${dataList.item1.author} . ${dataList.item1.uploadDateRaw}",
+              //   style: TextStyle(color: Colors.white70),
+              // ),
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -5,7 +5,7 @@ import 'package:youtube_clone/notify.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 Future<Tuple<ChannelUploadsList, Channel>> getChannelInfo(
-    String channelID, BuildContext context) async {
+    String channelID) async {
   var yt = YoutubeExplode();
 
   return yt.channels.get(channelID).then(
@@ -13,7 +13,7 @@ Future<Tuple<ChannelUploadsList, Channel>> getChannelInfo(
             .getUploadsFromPage(channelID)
             .then((ChannelUploadsList uploadsList) {
           var data = Tuple(uploadsList, channel);
-          Provider.of<ValueProvider>(context, listen: false).addValue(data);
+
           yt.close();
           return data;
         }),
@@ -30,7 +30,7 @@ Future<void> getAndSetAllChannelInfo(
     if (previousDataSet.containsKey(channelID) && !ignorePrevious) {
       null;
     } else {
-      await getChannelInfo(channelID, context);
+      await getChannelInfo(channelID);
     }
   }
 }

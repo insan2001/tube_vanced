@@ -39,7 +39,9 @@ class ValueProvider extends ChangeNotifier {
     dataSet.remove(channelID);
     channelData.remove(key);
     List<String> channelList = prefs.getStringList(prefKey)!;
+    print(channelList);
     channelList.remove(channelID);
+    print(channelList);
     prefs.setStringList(prefKey, channelList);
     notifyListeners();
   }

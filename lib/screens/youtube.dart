@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:youtube_clone/custom_widget/video.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
 import 'package:youtube_clone/notify.dart';
-import 'package:youtube_clone/screens/channel.dart';
 
 class YoutubeScreen extends StatefulWidget {
   const YoutubeScreen({super.key});
@@ -41,15 +40,6 @@ class _YoutubeScreenState extends State<YoutubeScreen> {
                   context.watch<ValueProvider>().channelData[index].item1.first,
                   context.watch<ValueProvider>().channelData[index].item2,
                 ),
-                navigation: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChannelScreen(
-                              data: context
-                                  .read<ValueProvider>()
-                                  .channelData[index])));
-                },
               ),
             ),
           );
