@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_clone/custom_widget/video.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
+import 'package:youtube_clone/functions/youtube.dart';
 import 'package:youtube_clone/main.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
@@ -28,7 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
     if (!switchState) {
       var results = await yt.search.search(_controller.text);
       for (var video in results) {
-        Channel channel = await yt.channels.get(video.channelId);
+        Channel channel = await getChannelInfoByID(video.channelId.toString());
         setState(() {
           dataList.add(Tuple(video, channel));
         });

@@ -9,15 +9,12 @@ class VideoWidget extends StatelessWidget {
   final Tuple<Video, Channel> dataList;
   const VideoWidget({super.key, required this.dataList});
 
-  final double BOTTOMSIZE = 60;
-
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.black,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        // height: MediaQuery.of(context).size.width * 9 / 16 + BOTTOMSIZE,
         child: Center(
           child: Column(
             children: [
@@ -64,45 +61,6 @@ class VideoWidget extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               )
-              // GestureDetector(
-              //   onTap: () => navigation(),
-              //   child: Container(
-              //     padding: const EdgeInsets.all(2),
-              //     width: MediaQuery.of(context).size.width,
-              //     height: BOTTOMSIZE,
-              //     child: Row(
-              //       children: [
-              //         SizedBox(
-              //           width: MediaQuery.of(context).size.width / 10,
-              //           child: CircleAvatar(
-              //             foregroundImage: CachedNetworkImageProvider(
-              //                 dataList.item2.logoUrl),
-              //           ),
-              //         ),
-              //         const SizedBox(width: 10),
-              //         SizedBox(
-              //           width: MediaQuery.of(context).size.width * 8 / 10,
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             mainAxisAlignment: MainAxisAlignment.start,
-              //             children: [
-              // Text(
-              //   dataList.item1.title,
-              //   maxLines: 2,
-              //   overflow: TextOverflow.ellipsis,
-              //   style: TextStyle(color: Colors.white70),
-              // ),
-              // Text(
-              //   "${dataList.item1.author} . ${dataList.item1.uploadDateRaw}",
-              //   style: TextStyle(color: Colors.white70),
-              // ),
-              //             ],
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_clone/custom_widget/subscribe_button.dart';
 import 'package:youtube_clone/custom_widget/video.dart';
+import 'package:youtube_clone/function_providor.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
@@ -43,7 +45,9 @@ class _ChannelScreenState extends State<ChannelScreen> {
       child: Scaffold(
         backgroundColor: Colors.black,
         body: FutureBuilder(
-            future: yt.channels.getUploads(widget.channel.id).toList(),
+            future: context
+                .watch<FunctionProvider>()
+                .getAllVideos(widget.channel.id.toString()),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
