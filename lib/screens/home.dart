@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_clone/screens/allChannel.dart';
+import 'package:youtube_clone/screens/all_channel.dart';
 import 'package:youtube_clone/screens/search.dart';
-import 'package:youtube_clone/screens/youtube.dart';
+import 'package:youtube_clone/screens/youtube_home.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final Color others = const Color.fromARGB(255, 115, 169, 214);
 
   late List<Widget> pages;
+  late List<IconData> iconPack;
 
   @override
   void initState() {
@@ -25,13 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
       const SearchScreen(),
     ];
 
-    super.initState();
-  }
+    iconPack = [Icons.home, Icons.groups, Icons.search];
 
-  clickHandler(pIndex) {
-    setState(() {
-      pageIndex = pIndex;
-    });
+    super.initState();
   }
 
   @override
@@ -47,38 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                onPressed: () {
-                  clickHandler(0);
-                },
+            children: List.generate(
+              pages.length,
+              (index) => IconButton(
+                onPressed: () => setState(() {
+                  pageIndex = index;
+                }),
                 icon: Icon(
-                  Icons.home_rounded,
-                  color: pageIndex == 0 ? selected : others,
+                  iconPack[index],
+                  color: pageIndex == index ? selected : others,
                   size: 35,
                 ),
               ),
-              IconButton(
-                onPressed: () {
-                  clickHandler(1);
-                },
-                icon: Icon(
-                  Icons.groups_sharp,
-                  color: pageIndex == 1 ? selected : others,
-                  size: 35,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  clickHandler(2);
-                },
-                icon: Icon(
-                  Icons.search,
-                  color: pageIndex == 2 ? selected : others,
-                  size: 35,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

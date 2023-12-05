@@ -6,6 +6,6 @@ class MyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(data, style: TextStyle(color: Colors.white70));
+    return Text(data, style: const TextStyle(color: Colors.white70));
   }
 }

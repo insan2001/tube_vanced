@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_clone/custom_widget/subscribeButton.dart';
+import 'package:youtube_clone/custom_widget/subscribe_button.dart';
 import 'package:youtube_clone/custom_widget/video.dart';
 import 'package:youtube_clone/functions/linkedList.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';

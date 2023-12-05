@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:youtube_clone/custom_widget/subscribeButton.dart';
+import 'package:youtube_clone/custom_widget/subscribe_button.dart';
 import 'package:youtube_clone/custom_widget/text.dart';
 import 'package:youtube_clone/functions/youtube.dart';
 import 'package:youtube_clone/notify.dart';
+import 'package:youtube_clone/screens/channel.dart';
 
 class DisplayChannelScreen extends StatefulWidget {
   const DisplayChannelScreen({super.key});
@@ -47,17 +48,13 @@ class _DisplayChannelScreenState extends State<DisplayChannelScreen> {
                             child: Text("Something gone wrong"));
                       } else if (snapshot.hasData) {
                         return ListTile(
-                          // onTap: () {
-                          //   Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => ChannelScreen(
-                          //           data: context
-                          //               .read<ValueProvider>()
-                          //               .channelData[index]),
-                          //     ),
-                          //   );
-                          // },
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ChannelScreen(channel: snapshot.data!),
+                            ),
+                          ),
                           leading: CircleAvatar(
                             maxRadius: 30,
                             foregroundImage: CachedNetworkImageProvider(
