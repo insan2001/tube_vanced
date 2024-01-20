@@ -50,10 +50,19 @@ class _YoutubehomeScreenState extends State<YoutubehomeScreen> {
                   ),
                 );
               } else if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: context.watch<FunctionProvider>().myList.length,
-                  itemBuilder: (context, index) => VideoWidget(
-                    dataList: context.watch<FunctionProvider>().myList[index],
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<FunctionProvider>().cache = {};
+                    context.read<FunctionProvider>().channelVideoListCache = {};
+                    setState(() {
+                      myChannelList = prefs.getStringList(prefKey) ?? [];
+                    });
+                  },
+                  child: ListView.builder(
+                    itemCount: context.watch<FunctionProvider>().myList.length,
+                    itemBuilder: (context, index) => VideoWidget(
+                      dataList: context.watch<FunctionProvider>().myList[index],
+                    ),
                   ),
                 );
               } else {
