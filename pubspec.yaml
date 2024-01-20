@@ -15,6 +15,7 @@ dependencies:
   provider: ^6.1.1
   share_plus: ^7.2.1
   rename: ^3.0.1
+  shimmer: ^3.0.0
   youtube_player_flutter:
     git:
       url: https://github.com/insan2001/youtube_player_flutter

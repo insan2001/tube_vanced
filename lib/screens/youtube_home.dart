@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:youtube_clone/custom_widget/video.dart';
 import 'package:youtube_clone/function_providor.dart';
 import 'package:youtube_clone/main.dart';
@@ -34,23 +35,30 @@ class _YoutubehomeScreenState extends State<YoutubehomeScreen> {
         ? const Center(
             child: Text("Subscribe to some channel to get feed",
                 style: TextStyle(color: Colors.white70)))
-        : ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: myChannelList.length,
-            itemBuilder: (context, index) => FutureBuilder(
-                future: context
-                    .watch<FunctionProvider>()
-                    .getRequiredInfo(myChannelList[index]),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Center(child: Text("Something gone wrong"));
-                  } else if (snapshot.hasData) {
-                    return VideoWidget(dataList: snapshot.data!);
-                  } else {
-                    return const Center(child: Text("Error"));
-                  }
-                }));
+        : StreamBuilder(
+            stream: context
+                .watch<FunctionProvider>()
+                .getRequiredInfo(myChannelList),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return ListView.builder(
+                  itemCount: myChannelList.length,
+                  itemBuilder: (context, index) => Shimmer.fromColors(
+                    baseColor: const Color.fromARGB(255, 192, 192, 192),
+                    highlightColor: Colors.black,
+                    child: const VideoWidget(),
+                  ),
+                );
+              } else if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: context.watch<FunctionProvider>().myList.length,
+                  itemBuilder: (context, index) => VideoWidget(
+                    dataList: context.watch<FunctionProvider>().myList[index],
+                  ),
+                );
+              } else {
+                return const Center(child: Text("Something went wrong!"));
+              }
+            });
   }
 }

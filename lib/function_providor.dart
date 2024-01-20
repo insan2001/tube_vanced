@@ -7,15 +7,27 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 class FunctionProvider extends ChangeNotifier {
   Map<String, Tuple<Video, Channel>> cache = {};
   Map<String, List<Video>> channelVideoListCache = {};
+  List<Tuple<Video, Channel>> myList = [];
 
-  Future<Tuple<Video, Channel>> getRequiredInfo(String channelId) async {
-    if (cache.containsKey(channelId)) {
-      return cache[channelId]!;
-    } else {
-      Channel channel = await getChannelInfoByID(channelId);
-      Video video = await getLatestVideoFromChannel(channelId);
-      cache[channelId] = Tuple(video, channel);
-      return Tuple(video, channel);
+  Stream<Tuple<Video, Channel>> getRequiredInfo(
+      List<String> myChannelList) async* {
+    for (String channelId in myChannelList) {
+      if (cache.containsKey(channelId)) {
+        if (myList.length < myChannelList.length) {
+          myList.add(cache[channelId]!);
+          notifyListeners();
+        }
+        yield cache[channelId]!;
+      } else {
+        Channel channel = await getChannelInfoByID(channelId);
+        Video video = await getLatestVideoFromChannel(channelId);
+        cache[channelId] = Tuple(video, channel);
+        if (myList.length < myChannelList.length) {
+          myList.add(cache[channelId]!);
+          notifyListeners();
+        }
+        yield Tuple(video, channel);
+      }
     }
   }
 
