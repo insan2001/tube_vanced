@@ -30,7 +30,7 @@ class _SubscribeButtonState extends State<SubscribeButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 120,
+      width: MediaQuery.of(context).size.width / 3.3,
       child: TextButton(
         onPressed: () {
           // handle subscribe and unsubsribe
