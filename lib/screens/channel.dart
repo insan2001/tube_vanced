@@ -58,7 +58,7 @@ class _ChannelScreenState extends State<ChannelScreen> {
                   slivers: <Widget>[
                     SliverAppBar(
                       pinned: true,
-                      backgroundColor: Colors.black,
+                      backgroundColor: Colors.grey,
                       actions: [
                         SubscribeButton(channelId: widget.channel.id.toString())
                       ],
@@ -66,10 +66,13 @@ class _ChannelScreenState extends State<ChannelScreen> {
                       expandedHeight:
                           MediaQuery.of(context).size.width / 16 * 4.36,
                       flexibleSpace: FlexibleSpaceBar(
-                        centerTitle: true,
+                        titlePadding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width / 2.4),
                         title: CircleAvatar(
                           foregroundImage: CachedNetworkImageProvider(
-                              widget.channel.logoUrl),
+                            widget.channel.logoUrl,
+                          ),
+                          radius: 25,
                         ),
                         background: CachedNetworkImage(
                           imageUrl: bannerUrl,
