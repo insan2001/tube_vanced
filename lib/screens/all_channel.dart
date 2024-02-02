@@ -36,18 +36,24 @@ class _DisplayChannelScreenState extends State<DisplayChannelScreen> {
           ? const Center(child: MyText(data: "Add some channels to begin"))
           : ListView.builder(
               itemCount: myChannelList.length,
-              itemBuilder: (context, index) => Card(
-                color: Colors.grey,
-                child: FutureBuilder(
-                    future: getChannelInfoByID(myChannelList[index]),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return const Center(
-                            child: Text("Something gone wrong"));
-                      } else if (snapshot.hasData) {
-                        return ListTile(
+              // onReorder: (oldIndex, newIndex) {
+              //   String value = myChannelList.removeAt(oldIndex);
+              //   myChannelList.insert(newIndex, value);
+              //   prefs.setStringList(prefKey, myChannelList);
+              //   setState(() {});
+              // },
+              itemBuilder: (context, index) => FutureBuilder(
+                  key: UniqueKey(),
+                  future: getChannelInfoByID(myChannelList[index]),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return const Center(child: Text("Something gone wrong"));
+                    } else if (snapshot.hasData) {
+                      return Card(
+                        elevation: 10,
+                        child: ListTile(
                           onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -66,12 +72,12 @@ class _DisplayChannelScreenState extends State<DisplayChannelScreen> {
                               "${snapshot.data!.subscribersCount} Subscribers"),
                           trailing: SubscribeButton(
                               channelId: snapshot.data!.id.toString()),
-                        );
-                      } else {
-                        return const Center(child: Text("Error"));
-                      }
-                    }),
-              ),
+                        ),
+                      );
+                    } else {
+                      return const Center(child: Text("Error"));
+                    }
+                  }),
             ),
     );
   }
