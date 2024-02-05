@@ -30,13 +30,11 @@ class _SearchScreenState extends State<SearchScreen> {
         Channel channel = await getChannelInfoByID(video.channelId.toString());
         setState(() {
           dataList.add(Tuple(video, channel));
-          print(dataList);
         });
       }
     } else {
       // implement search channels
     }
-    print("search end");
     setState(() {
       searching = false;
     });
