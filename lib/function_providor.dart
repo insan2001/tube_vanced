@@ -8,13 +8,15 @@ class FunctionProvider extends ChangeNotifier {
   Map<String, Tuple<Video, Channel>> cache = {};
   Map<String, List<Video>> channelVideoListCache = {};
   List<Tuple<Video, Channel>> myList = [];
+  List<Tuple<Video, Channel>> watched = [];
 
   Stream<Tuple<Video, Channel>> getRequiredInfo(
       List<String> myChannelList) async* {
     myList = [];
     for (String channelId in myChannelList) {
       if (cache.containsKey(channelId)) {
-        if (myList.length <= myChannelList.length) {
+        if (!myList.contains(cache[channelId]) &&
+            !watched.contains(cache[channelId])) {
           myList.add(cache[channelId]!);
           notifyListeners();
         }
@@ -23,7 +25,8 @@ class FunctionProvider extends ChangeNotifier {
         Channel channel = await getChannelInfoByID(channelId);
         Video video = await getLatestVideoFromChannel(channelId);
         cache[channelId] = Tuple(video, channel);
-        if (myList.length <= myChannelList.length) {
+        if (!myList.contains(cache[channelId]) &&
+            !watched.contains(cache[channelId])) {
           myList.add(cache[channelId]!);
           notifyListeners();
         }

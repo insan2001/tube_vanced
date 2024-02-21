@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:youtube_clone/custom_widget/video.dart';
 import 'package:youtube_clone/function_providor.dart';
-import 'package:youtube_clone/functions/linkedList.dart';
 import 'package:youtube_clone/main.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class YoutubehomeScreen extends StatefulWidget {
   const YoutubehomeScreen({super.key});
@@ -33,14 +31,14 @@ class _YoutubehomeScreenState extends State<YoutubehomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Stream<Tuple<Video, Channel>>? myStream =
-        context.watch<FunctionProvider>().getRequiredInfo(myChannelList);
     return myChannelList.isEmpty
         ? const Center(
             child: Text("Subscribe to some channel to get feed",
                 style: TextStyle(color: Colors.white70)))
         : StreamBuilder(
-            stream: myStream,
+            stream: context
+                .watch<FunctionProvider>()
+                .getRequiredInfo(myChannelList),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return ListView.builder(
